@@ -9,10 +9,7 @@ public class Example : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		permissionsRequired = new List<AndroidPermission>(){AndroidPermission.WRITE_EXTERNAL_STORAGE, AndroidPermission.ACCESS_FINE_LOCATION};
-		var permissionMgr = GameObject.FindObjectOfType<UniAndroidPermission>();
-		if(permissionMgr == null){
-			requestPermission(permissionsRequired);
-		}
+		requestPermission(permissionsRequired);
 	}
 	
 	// Update is called once per frame
@@ -26,6 +23,7 @@ public class Example : MonoBehaviour {
 			if(!UniAndroidPermission.Instance.IsPermitted(permission)){
 				if(UniAndroidPermission.Instance.IsNeverAsk(p)){
 					UniAndroidPermission.Instance.GoSetting(() => {
+						//back from app settings page, check if the permission is permitted
 						requestPermission(permissions);
 					}); 
 					return;
